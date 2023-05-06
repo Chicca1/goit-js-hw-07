@@ -9,19 +9,32 @@ import { galleryItems } from './gallery-items.js';
 // });
 
 document.querySelector('.gallery').addEventListener('click', event => {
-    event.preventDefault(); 
-    if (event.key === 'Escape') {
-        lightbox.close();
-      }
+    event.preventDefault();
   
-    const galleryItem = event.target.closest('.gallery__item'); 
+    const galleryItem = event.target.closest('.gallery__item');
   
     if (galleryItem) {
-      const imageSrc = galleryItem.querySelector('.gallery__image').dataset.source; 
-      const instance = basicLightbox.create(`<img src="${imageSrc}" alt="" />`); 
-      instance.show(); 
+      const imageSrc = galleryItem.querySelector('.gallery__image').dataset.source;
+      const instance = basicLightbox.create(`<img src="${imageSrc}" alt="" />`);
+      instance.show();
+  
+      // добавляем слушатель событий на клавиатуру для закрытия модального окна
+      const closeOnEscape = event => {
+        if (event.code === 'Escape' && instance.visible()) {
+          instance.close();
+        }
+      };
+      document.addEventListener('keydown', closeOnEscape);
+  
+      // удаляем слушатель событий при закрытии модального окна
+      instance.on('close', () => {
+        document.removeEventListener('keydown', closeOnEscape);
+      });
     }
   });
+  
+ 
+  
   
 
   
