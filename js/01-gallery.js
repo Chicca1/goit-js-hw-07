@@ -18,7 +18,7 @@ document.querySelector('.gallery').addEventListener('click', event => {
       const instance = basicLightbox.create(`<img src="${imageSrc}" alt="" />`);
       instance.show();
   
-      // добавляем слушатель событий на клавиатуру для закрытия модального окна
+  
       const closeOnEscape = event => {
         if (event.code === 'Escape' && instance.visible()) {
           instance.close();
@@ -26,7 +26,7 @@ document.querySelector('.gallery').addEventListener('click', event => {
       };
       document.addEventListener('keydown', closeOnEscape);
   
-      // удаляем слушатель событий при закрытии модального окна
+      
       instance.on('close', () => {
         document.removeEventListener('keydown', closeOnEscape);
       });
@@ -34,9 +34,6 @@ document.querySelector('.gallery').addEventListener('click', event => {
   });
   
  
-  
-  
-
   
   const createGalleryItem = ({ preview, original, description }) =>
     `<li class="gallery__item">
